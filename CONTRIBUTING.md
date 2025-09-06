@@ -179,12 +179,6 @@ Contributors will be:
 - Credited in the game's about section
 - Invited to beta test new features
 
-## 📞 Getting Help
-
-- **Discord**: [Join our community](https://discord.gg/your-server)
-- **GitHub Discussions**: [Ask questions](https://github.com/yourusername/stellar-odyssey-3d/discussions)
-- **Email**: your.email@example.com
-
 ## 📄 License
 
 By contributing, you agree that your contributions will be licensed under the MIT License.
