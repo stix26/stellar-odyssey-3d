@@ -1,0 +1,323 @@
+[gd_scene load_steps=15 format=3 uid="uid://nuclear_hud_scene"]
+
+[ext_resource type="Script" path="res://scripts/NuclearHUD.gd" id="1_nuclear"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nuclear_panel"]
+bg_color = Color(0, 0, 0, 0.85)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 1, 1, 0.9)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_nuclear_title"]
+font_size = 36
+font_color = Color(0, 1, 1, 1)
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_nuclear_score"]
+font_size = 24
+font_color = Color(1, 1, 0, 1)
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_nuclear_info"]
+font_size = 18
+font_color = Color(0.9, 0.9, 1, 1)
+outline_size = 1
+outline_color = Color(0, 0, 0, 0.8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_combo"]
+font_size = 28
+font_color = Color(1, 0.5, 0, 1)
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_progress"]
+bg_color = Color(0.1, 0.1, 0.1, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_progress_fill"]
+bg_color = Color(0, 1, 0.5, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_landing_feedback"]
+font_size = 32
+font_color = Color(1, 1, 1, 1)
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_high_score"]
+bg_color = Color(0.1, 0, 0.2, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0, 1, 0.8)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_analytics"]
+bg_color = Color(0, 0.1, 0.1, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 1, 0.5, 0.8)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_analytics"]
+font_size = 16
+font_color = Color(0, 1, 0.5, 1)
+outline_size = 1
+outline_color = Color(0, 0, 0, 0.8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_high_score"]
+font_size = 16
+font_color = Color(1, 0.8, 1, 1)
+outline_size = 1
+outline_color = Color(0, 0, 0, 0.8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_progress"]
+font_size = 20
+font_color = Color(0, 1, 0.5, 1)
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[node name="NuclearHUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource("1_nuclear")
+
+[node name="EscHint" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -200.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 40.0
+text = "ESC - Pause Menu"
+label_settings = SubResource("LabelSettings_nuclear_secondary")
+horizontal_alignment = 2
+
+[node name="TopPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -400.0
+offset_top = 20.0
+offset_right = 400.0
+offset_bottom = 150.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nuclear_panel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TopPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 15.0
+offset_right = -20.0
+offset_bottom = -15.0
+
+[node name="LevelLabel" type="Label" parent="TopPanel/VBoxContainer"]
+layout_mode = 2
+text = "ASTEROID FIELDS (1/15)"
+label_settings = SubResource("LabelSettings_nuclear_title")
+horizontal_alignment = 1
+
+[node name="InfoContainer" type="HBoxContainer" parent="TopPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="TopPanel/VBoxContainer/InfoContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SCORE: 0"
+label_settings = SubResource("LabelSettings_nuclear_score")
+
+[node name="LivesLabel" type="Label" parent="TopPanel/VBoxContainer/InfoContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "LIVES: 3"
+label_settings = SubResource("LabelSettings_nuclear_info")
+horizontal_alignment = 2
+
+[node name="ComboLabel" type="Label" parent="TopPanel/VBoxContainer"]
+layout_mode = 2
+text = "COMBO x0"
+label_settings = SubResource("LabelSettings_combo")
+horizontal_alignment = 1
+visible = false
+
+[node name="ProgressPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -300.0
+offset_right = 200.0
+offset_bottom = -220.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nuclear_panel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ProgressPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 10.0
+offset_right = -15.0
+offset_bottom = -10.0
+
+[node name="LevelProgressLabel" type="Label" parent="ProgressPanel/VBoxContainer"]
+layout_mode = 2
+text = "Progress: 1/15 (6.7%)"
+label_settings = SubResource("LabelSettings_progress")
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="ProgressPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_progress")
+theme_override_styles/fill = SubResource("StyleBoxFlat_progress_fill")
+value = 6.7
+
+[node name="LandingFeedback" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -50.0
+offset_right = 200.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "PERFECT LANDING!
++500 POINTS"
+label_settings = SubResource("LabelSettings_landing_feedback")
+horizontal_alignment = 1
+vertical_alignment = 1
+visible = false
+
+[node name="HighScorePanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -150.0
+offset_right = -20.0
+offset_bottom = 150.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_high_score")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HighScorePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 10.0
+offset_right = -15.0
+offset_bottom = -10.0
+
+[node name="TitleLabel" type="Label" parent="HighScorePanel/VBoxContainer"]
+layout_mode = 2
+text = "HIGH SCORES"
+label_settings = SubResource("LabelSettings_high_score")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="HighScorePanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="HighScoreList" type="VBoxContainer" parent="HighScorePanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="AnalyticsPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -200.0
+offset_right = 320.0
+offset_bottom = -20.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_analytics")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AnalyticsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 10.0
+offset_right = -15.0
+offset_bottom = -10.0
+
+[node name="TitleLabel" type="Label" parent="AnalyticsPanel/VBoxContainer"]
+layout_mode = 2
+text = "AI ANALYTICS"
+label_settings = SubResource("LabelSettings_analytics")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="AnalyticsPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="AccuracyLabel" type="Label" parent="AnalyticsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Accuracy: 0.0%"
+label_settings = SubResource("LabelSettings_analytics")
+
+[node name="EfficiencyLabel" type="Label" parent="AnalyticsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Efficiency: LEARNING"
+label_settings = SubResource("LabelSettings_analytics")
+
+[node name="PerfectionLabel" type="Label" parent="AnalyticsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Perfect Landings: 0"
+label_settings = SubResource("LabelSettings_analytics")
+
+[node name="ComboRecordLabel" type="Label" parent="AnalyticsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Best Combo: x0"
+label_settings = SubResource("LabelSettings_analytics")

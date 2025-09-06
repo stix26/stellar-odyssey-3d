@@ -1,0 +1,74 @@
+name: 🚀 Deploy Stellar Odyssey 3D
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: 🎮 Setup Godot
+      uses: chickensoft-games/setup-godot@v1
+      with:
+        version: 4.4.1
+        
+    - name: 🌐 Export Web Build
+      run: |
+        mkdir -p web
+        godot --headless --export-release "Web" web/index.html --quit
+        
+    - name: 📦 Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./web
+        
+    - name: 🎯 Deploy to Netlify
+      if: github.ref == 'refs/heads/main'
+      uses: nwtgck/actions-netlify@v2.0
+      with:
+        publish-dir: './web'
+        production-branch: main
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        deploy-message: "Deploy from GitHub Actions"
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        
+    - name: 📋 Create Release
+      if: github.ref == 'refs/heads/main'
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{ github.run_number }}
+        release_name: Stellar Odyssey 3D v${{ github.run_number }}
+        body: |
+          🚀 **Stellar Odyssey 3D - Automated Release**
+          
+          ## 🎮 Play Online
+          - [🌐 GitHub Pages](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }})
+          - [⚡ Netlify](https://dainty-mochi-d3e90e.netlify.app)
+          
+          ## 📥 Downloads
+          - Web Build: Available online
+          - Desktop versions: Coming soon
+          
+          ## ✨ Features
+          - 15 epic space levels
+          - AI-generated fractal challenges  
+          - 3D platformer mechanics
+          - Cross-platform compatibility
+          
+          Built with Godot 4.4.1 ❤️
+        draft: false
+        prerelease: false

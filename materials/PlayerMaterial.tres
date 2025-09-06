@@ -1,0 +1,21 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[resource]
+albedo_color = Color(1, 0.4, 0.1, 1)
+metallic = 0.7
+roughness = 0.2
+emission_enabled = true
+emission = Color(1, 0.6, 0.2, 1)
+emission_energy = 1.2
+normal_enabled = true
+rim_enabled = true
+rim = Color(1, 0.8, 0.4, 1)
+rim_tint = 0.8
+clearcoat_enabled = true
+clearcoat = 0.8
+clearcoat_roughness = 0.05
+anisotropy_enabled = true
+anisotropy = 0.5
+heightmap_enabled = true
+subsurf_scatter_enabled = true
+subsurf_scatter_strength = 0.4

@@ -1,0 +1,459 @@
+[gd_scene load_steps=12 format=3 uid="uid://level10uid"]
+
+[ext_resource type="Script" path="res://scripts/Player.gd" id="1_0hdxr"]
+[ext_resource type="Material" path="res://materials/PlayerMaterial.tres" id="2_1hjxk"]
+[ext_resource type="Material" path="res://materials/PlatformMaterial.tres" id="3_2hjxk"]
+[ext_resource type="Material" path="res://materials/GoalMaterial.tres" id="4_3hjxk"]
+[ext_resource type="Environment" path="res://environments/GalaxyEnvironment.tres" id="5_4hjxk"]
+[ext_resource type="Script" path="res://scripts/LevelGoal.gd" id="6_goal"]
+[ext_resource type="PackedScene" path="res://scenes/Starfield.tscn" id="7_starfield"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_player"]
+radius = 0.5
+height = 2.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
+radius = 0.5
+height = 2.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_platform"]
+size = Vector3(6.0, 1, 6.0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_platform"]
+size = Vector3(6.0, 1, 6.0)
+
+[sub_resource type="SphereMesh" id="SphereMesh_goal"]
+radius = 1.0
+height = 2.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_goal"]
+radius = 1.0
+
+[node name="Level10" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("5_4hjxk")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 50, 0)
+light_energy = 0.8
+light_indirect_energy = 0.4666666666666667
+shadow_enabled = true
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_0hdxr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+mesh = SubResource("CapsuleMesh_player")
+surface_material_override/0 = ExtResource("2_1hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_player")
+
+[node name="CameraController" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 1.5, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Player/CameraController"]
+spring_length = 8.0
+collision_mask = 1
+
+[node name="Camera3D" type="Camera3D" parent="Player/CameraController/SpringArm3D"]
+fov = 75.0
+
+[node name="DashParticles" type="GPUParticles3D" parent="Player"]
+emitting = false
+amount = 100
+
+[node name="JumpParticles" type="GPUParticles3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+emitting = false
+amount = 50
+
+[node name="LandingParticles" type="GPUParticles3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+emitting = false
+amount = 30
+
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="StartPlatform" type="StaticBody3D" parent="Environment"]
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/StartPlatform"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/StartPlatform"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="Platform1" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.0, 5.0, 0.0)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Platform1"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Platform1"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="Platform2" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2, 8.5, 14.8)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Platform2"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Platform2"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="Platform3" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4, 11.9, 19.6)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Platform3"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Platform3"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="Platform4" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.3, 15.4, 5.7)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Platform4"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Platform4"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="Platform5" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.2, 18.8, -17.9)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Platform5"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Platform5"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="Platform6" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 22.3, -29.8)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Platform6"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Platform6"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="Platform7" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.2, 25.8, -15.3)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Platform7"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Platform7"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="Platform8" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.9, 29.2, 16.7)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Platform8"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Platform8"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="Platform9" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7, 32.7, 38.7)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Platform9"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Platform9"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="Platform10" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.4, 36.2, 27.9)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Platform10"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Platform10"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="Platform11" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.7, 39.6, -10.8)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Platform11"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Platform11"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="Platform12" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.0, 43.1, -44.9)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Platform12"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Platform12"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="Platform13" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.0, 46.5, -42.0)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Platform13"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Platform13"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="GoalPlatform" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.0, 45.0, -0.0)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/GoalPlatform"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/GoalPlatform"]
+shape = SubResource("BoxShape3D_platform")
+
+
+[node name="ConnectingPath1" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.71, 6.71, 0.00)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/ConnectingPath1"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/ConnectingPath1"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="ConnectingPath2" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.43, 13.43, 0.00)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/ConnectingPath2"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/ConnectingPath2"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="ConnectingPath3" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.14, 20.14, 0.00)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/ConnectingPath3"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/ConnectingPath3"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="ConnectingPath4" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.86, 26.86, 0.00)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/ConnectingPath4"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/ConnectingPath4"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="ConnectingPath5" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.57, 33.57, 0.00)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/ConnectingPath5"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/ConnectingPath5"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="ConnectingPath6" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.29, 40.29, 0.00)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/ConnectingPath6"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/ConnectingPath6"]
+shape = SubResource("BoxShape3D_platform")
+
+
+[node name="FixedPath1" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.91, 4.27, 0.00)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/FixedPath1"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/FixedPath1"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="FixedPath2" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.82, 8.55, 0.00)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/FixedPath2"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/FixedPath2"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="FixedPath3" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.73, 12.82, 0.00)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/FixedPath3"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/FixedPath3"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="FixedPath4" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.64, 17.09, 0.00)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/FixedPath4"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/FixedPath4"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="FixedPath5" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.55, 21.36, 0.00)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/FixedPath5"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/FixedPath5"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="FixedPath6" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.45, 25.64, 0.00)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/FixedPath6"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/FixedPath6"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="FixedPath7" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.36, 29.91, 0.00)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/FixedPath7"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/FixedPath7"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="FixedPath8" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.27, 34.18, 0.00)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/FixedPath8"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/FixedPath8"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="FixedPath9" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.18, 38.45, 0.00)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/FixedPath9"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/FixedPath9"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="FixedPath10" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.09, 42.73, 0.00)
+collision_layer = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/FixedPath10"]
+mesh = SubResource("BoxMesh_platform")
+surface_material_override/0 = ExtResource("3_2hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/FixedPath10"]
+shape = SubResource("BoxShape3D_platform")
+
+[node name="Goal" type="Area3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.0, 47.0, -0.0)
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("6_goal")
+next_level_number = 11
+goal_message = "Level 10 Complete! Moving to Level 11..."
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Goal"]
+mesh = SubResource("SphereMesh_goal")
+surface_material_override/0 = ExtResource("4_3hjxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Goal"]
+shape = SubResource("SphereShape3D_goal")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Environment/Goal"]
+light_color = Color(1, 1, 0.2, 1)
+light_energy = 2.6666666666666665
+omni_range = 20.0
+
+[node name="Lighting" type="Node3D" parent="."]
+
+[node name="SpotLight3D1" type="SpotLight3D" parent="Lighting"]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 20.0, 31.5, 0.0)
+light_color = Color(0.75, 0.7499999999999999, 0.0, 1)
+light_energy = 1.3
+spot_range = 45.0
+spot_angle = 65.0
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="Lighting"]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, -20.0, 31.5, 0.0)
+light_color = Color(1.0, 0.2500000000000001, 0.24999999999999978, 1)
+light_energy = 1.3
+spot_range = 45.0
+spot_angle = 65.0

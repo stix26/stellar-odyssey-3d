@@ -1,0 +1,33 @@
+<svg height="128" width="128" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:#4A90E2;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#1E3A8A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0F172A;stop-opacity:1" />
+    </radialGradient>
+    <linearGradient id="star" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FFA500;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF6B35;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="64" cy="64" r="60" fill="url(#bg)" stroke="#2563EB" stroke-width="4"/>
+  
+  <!-- Central star -->
+  <polygon points="64,20 72,44 96,44 76,60 84,84 64,68 44,84 52,60 32,44 56,44" fill="url(#star)" stroke="#FFD700" stroke-width="2"/>
+  
+  <!-- Orbital rings -->
+  <circle cx="64" cy="64" r="45" fill="none" stroke="#60A5FA" stroke-width="1.5" opacity="0.6"/>
+  <circle cx="64" cy="64" r="35" fill="none" stroke="#93C5FD" stroke-width="1" opacity="0.4"/>
+  
+  <!-- Small orbital dots -->
+  <circle cx="109" cy="64" r="3" fill="#60A5FA"/>
+  <circle cx="19" cy="64" r="2" fill="#93C5FD"/>
+  <circle cx="64" cy="19" r="2.5" fill="#FBBF24"/>
+  <circle cx="64" cy="109" r="2" fill="#34D399"/>
+  
+  <!-- Title text -->
+  <text x="64" y="115" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#E5E7EB">STELLAR</text>
+</svg>
