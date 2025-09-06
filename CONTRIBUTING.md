@@ -5,7 +5,7 @@ Thank you for your interest in contributing to Stellar Odyssey 3D! 🚀
 ## 🎯 Ways to Contribute
 
 ### 🐛 Bug Reports
-- Use the [issue tracker](https://github.com/yourusername/stellar-odyssey-3d/issues)
+- Use the [issue tracker](https://github.com/stix26/stellar-odyssey-3d/issues)
 - Include detailed reproduction steps
 - Mention your browser/OS version
 - Attach screenshots if applicable
@@ -31,7 +31,7 @@ Thank you for your interest in contributing to Stellar Odyssey 3D! 🚀
 
 1. **Fork and Clone**
    ```bash
-   git clone https://github.com/yourusername/stellar-odyssey-3d.git
+   git clone https://github.com/stix26/stellar-odyssey-3d.git
    cd stellar-odyssey-3d
    ```
 
