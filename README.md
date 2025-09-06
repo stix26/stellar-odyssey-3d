@@ -15,7 +15,7 @@
 
 ## 🎮 Demo Video
 
-media/stellar-odyssey-gameplay.mov
+![Stellar Odyssey 3D Gameplay](media/stellar-odyssey-gameplay.mov)
 
 *Experience precision platforming across 15 challenging levels in a beautiful space environment.*
 
@@ -42,16 +42,10 @@ media/stellar-odyssey-gameplay.mov
 
 ## 🚀 Quick Start
 
-### Option 1: Play Online (Recommended)
-```bash
-# Visit the live demo
-https://dainty-mochi-d3e90e.netlify.app
-```
-
-### Option 2: Run Locally
+### Option 1: Run Locally
 ```bash
 # Clone the repository
-git clone https://github.com/stilesseymens/stellar-odyssey-3d.git
+git clone https://github.com/stix26/stellar-odyssey-3d.git
 cd stellar-odyssey-3d
 
 # Run local development server
@@ -61,8 +55,8 @@ cd web && python3 -m http.server 8000
 open http://localhost:8000
 ```
 
-### Option 3: Download Desktop App
-- **macOS**: [Download StellarOdyssey3D.zip](https://dainty-mochi-d3e90e.netlify.app/StellarOdyssey3D.zip) (57MB)
+### Option 2: Download Desktop App
+- **macOS**: Available in `builds/StellarOdyssey3D.zip` (57MB)
 - **Windows/Linux**: Coming soon!
 
 ## 🛠 Development Setup
@@ -76,7 +70,7 @@ open http://localhost:8000
 ### Local Development
 ```bash
 # 1. Clone the repository
-git clone https://github.com/stilesseymens/stellar-odyssey-3d.git
+git clone https://github.com/stix26/stellar-odyssey-3d.git
 cd stellar-odyssey-3d
 
 # 2. Open in Godot
@@ -120,27 +114,17 @@ stellar-odyssey-3d/
 
 ## 🌐 Deployment Options
 
-### Netlify (Current)
+### Local Web Server
 ```bash
-# Automatic deployment
-netlify deploy --dir=web --prod
+# Export and serve locally
+./export_web.sh
+cd web && python3 -m http.server 8000
+# Game available at http://localhost:8000
 ```
 
-### Vercel
+### Itch.io (Manual Upload)
 ```bash
-# Deploy to Vercel
-vercel --prod
-```
-
-### GitHub Pages
-```bash
-# Enable GitHub Pages in repository settings
-# Point to /web directory or copy files to root
-```
-
-### Itch.io
-```bash
-# Create zip of web folder
+# Create zip of web folder for itch.io
 cd web && zip -r ../stellar-odyssey-3d-web.zip .
 # Upload to itch.io with "This file will be played in the browser" checked
 ```
@@ -282,9 +266,8 @@ MIT License - Free to use, modify, and distribute
 
 ## 📞 Support & Contact
 
-- **🐛 Issues**: [GitHub Issues](https://github.com/stilesseymens/stellar-odyssey-3d/issues)
-- **💬 Discussions**: [GitHub Discussions](https://github.com/stilesseymens/stellar-odyssey-3d/discussions)
-- **🌐 Live Demo**: [Play Now](https://dainty-mochi-d3e90e.netlify.app)
+- **🐛 Issues**: [GitHub Issues](https://github.com/stix26/stellar-odyssey-3d/issues)
+- **💬 Discussions**: [GitHub Discussions](https://github.com/stix26/stellar-odyssey-3d/discussions)
 - **📧 Email**: stiles.seymens@example.com
 
 ---
