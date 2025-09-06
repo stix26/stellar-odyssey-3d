@@ -264,12 +264,6 @@ MIT License - Free to use, modify, and distribute
 - **Space** - Inspiration for the cosmic theme
 - **Community** - Beta testers and feedback providers
 
-## 📞 Support & Contact
-
-- **🐛 Issues**: [GitHub Issues](https://github.com/stix26/stellar-odyssey-3d/issues)
-- **💬 Discussions**: [GitHub Discussions](https://github.com/stix26/stellar-odyssey-3d/discussions)
-- **📧 Email**: stiles.seymens@example.com
-
 ---
 
 <div align="center">
