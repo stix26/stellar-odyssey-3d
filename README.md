@@ -40,13 +40,97 @@
 | 11 | Galactic Core | ★★★★★ | 42 | AI Fibonacci |
 | 15 | Universe's End | ★★★★★ | 45 | Epic Final |
 
-## 🚀 Quick Start
+## 🎮 Quick Play (Easiest Method)
 
-### Option 1: Run Locally
+### One-Click Launchers
+For the easiest way to play, use these launcher scripts that automatically open the game in Godot:
+
+#### **🍎 macOS**
+```bash
+# Download the launcher script
+curl -o Launch_StellarOdyssey3D_Game.command https://raw.githubusercontent.com/your-repo/launchers/Launch_StellarOdyssey3D_Game.command
+chmod +x Launch_StellarOdyssey3D_Game.command
+
+# Double-click to play!
+```
+**Content of `Launch_StellarOdyssey3D_Game.command`:**
+```bash
+#!/bin/bash
+cd "$(dirname "$0")"
+./Godot.app/Contents/MacOS/Godot --path ./stellar-odyssey-3d
+```
+
+#### **🪟 Windows**
+```batch
+# Download the launcher script
+# Save as Launch_StellarOdyssey3D_Game.bat
+
+# Double-click to play!
+```
+**Content of `Launch_StellarOdyssey3D_Game.bat`:**
+```batch
+@echo off
+cd /d "%~dp0"
+if exist "Godot.exe" (
+    "Godot.exe" --path "./stellar-odyssey-3d"
+) else if exist "Godot_v4.4.1-stable_win64.exe" (
+    "Godot_v4.4.1-stable_win64.exe" --path "./stellar-odyssey-3d"
+) else if exist "Godot_v4.4.1-stable_win32.exe" (
+    "Godot_v4.4.1-stable_win32.exe" --path "./stellar-odyssey-3d"
+) else (
+    echo Godot executable not found! Please place Godot.exe in this directory.
+    pause
+)
+```
+
+#### **🐧 Linux**
+```bash
+# Download the launcher script
+curl -o Launch_StellarOdyssey3D_Game.sh https://raw.githubusercontent.com/your-repo/launchers/Launch_StellarOdyssey3D_Game.sh
+chmod +x Launch_StellarOdyssey3D_Game.sh
+
+# Double-click or run from terminal
+./Launch_StellarOdyssey3D_Game.sh
+```
+**Content of `Launch_StellarOdyssey3D_Game.sh`:**
+```bash
+#!/bin/bash
+cd "$(dirname "$0")"
+
+# Try different common Godot executable names
+if [ -f "./Godot" ]; then
+    ./Godot --path ./stellar-odyssey-3d
+elif [ -f "./godot" ]; then
+    ./godot --path ./stellar-odyssey-3d
+elif [ -f "./Godot_v4.4.1-stable_linux.x86_64" ]; then
+    ./Godot_v4.4.1-stable_linux.x86_64 --path ./stellar-odyssey-3d
+elif command -v godot &> /dev/null; then
+    godot --path ./stellar-odyssey-3d
+else
+    echo "Godot executable not found!"
+    echo "Please install Godot or place the Godot executable in this directory."
+    echo "You can download Godot from: https://godotengine.org/download"
+    read -p "Press Enter to exit..."
+fi
+```
+
+### Setup Instructions:
+1. **Download Godot 4.4.1+** from [godotengine.org](https://godotengine.org/download)
+2. **Clone this repository** to your desktop
+3. **Place the Godot executable** in the same directory as the launcher script
+4. **Double-click the launcher** for your platform
+5. **Click Play** (▶️) in Godot to start the game!
+
+## 🚀 Alternative Methods
+
+### Option 1: Run in Browser
 ```bash
 # Clone the repository
 git clone https://github.com/stix26/stellar-odyssey-3d.git
 cd stellar-odyssey-3d
+
+# Export for web first (requires Godot)
+./export_web.sh
 
 # Run local development server
 cd web && python3 -m http.server 8000
